@@ -32,13 +32,13 @@ public class SignUpActivity extends AppCompatActivity {
     Button signUpButton;
     @BindView(R.id.loginbutton)
     Button loginbutton;
-
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar) ;
+         progressBar = (ProgressBar)findViewById(R.id.progressBar) ;
         progressBar.setVisibility(View.GONE);
 
         ButterKnife.bind(this);
@@ -50,21 +50,34 @@ public class SignUpActivity extends AppCompatActivity {
     public void onSignUpButtonClicked() {
         String email = emailedittext.getText().toString();
         String password = passwordedittext.getText().toString();
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            sendEmailVerification();                        } else {
-                            // If sign in fails, display a message to the user.
-                            Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
 
-                        // ...
-                    }
-                });
+        if (email.isEmpty()==false && password.isEmpty()==false){    progressBar.setVisibility(View.VISIBLE);
+
+
+            mAuth.createUserWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                sendEmailVerification();
+
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(SignUpActivity.this,task.getException().getMessage(),
+                                        Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.GONE);
+
+                            }
+
+                            // ...
+                        }
+                    });}
+        else
+            Toast.makeText(SignUpActivity.this,"Empty Fields",
+                    Toast.LENGTH_LONG).show();
+
+
     }
 
     @OnClick(R.id.loginbutton)
@@ -79,8 +92,11 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    Toast.makeText(SignUpActivity.this, "Check your Account For verivication link",
+                            Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
                     startActivity(intent);
+                   // progressBar.setVisibility(View.GONE);
 
 
                 }

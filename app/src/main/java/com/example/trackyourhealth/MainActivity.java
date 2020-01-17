@@ -86,8 +86,12 @@ public class MainActivity extends AppCompatActivity {
 
        if( auth.getCurrentUser() == null){
            Intent intent = new Intent(this, LogInActivity.class);
+           startActivity(intent);}
+           else if (auth.getCurrentUser().isEmailVerified() == false){
+           Intent intent = new Intent(this, LogInActivity.class);
            startActivity(intent);
        }
+
     }
 }
 

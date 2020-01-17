@@ -57,6 +57,8 @@ public class LogInActivity extends AppCompatActivity {
 
         String email = emailedittext.getText().toString();
         String password = passwordedittext.getText().toString();
+        progressBar.setVisibility(View.VISIBLE);
+
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -64,9 +66,17 @@ public class LogInActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
 
                             if (mAuth.getCurrentUser().isEmailVerified()) {
+
                                 Intent intent = new Intent(LogInActivity.this, MainActivity.class);
                                 startActivity(intent);
+                                progressBar.setVisibility(View.GONE);
+
+                                finish();
                             }
+                            else
+                                Toast.makeText(LogInActivity.this, "Check your EMail for Verify Your Email First",
+                                        Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
 
                             // Sign in success, update UI with the signed-in user's information
 
@@ -74,6 +84,8 @@ public class LogInActivity extends AppCompatActivity {
                             // If sign in fails, display a message to the user.
                             Toast.makeText(LogInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+                            progressBar.setVisibility(View.GONE);
+
                         }
 
                         // ...
