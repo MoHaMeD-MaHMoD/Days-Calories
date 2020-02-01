@@ -4,31 +4,18 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primaryColor</item>
-        <item name="android:colorSecondary">@color/secondaryColor</item>
+
 
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
-        <item name="android:textColorHint">@color/primaryTextColor</item>
+        <item name="android:textColorHint">@color/hint</item>
 
         <item name="android:textColorPrimary">@color/primaryTextColor</item>
-        <item name="colorAccent">@color/secondaryColor</item>
-        <item name="android:textColorSecondary">@color/secondaryTextColor</item>
-
-    </style>
-
-    <style name="Button" >
-        <item name="android:background">@color/secondaryColor</item>
-        <item name="android:textColor">@color/secondaryTextColor</item>
-
-
+        <item name="colorAccent">@color/hint</item>
 
 
     </style>
 
 
-    <style name="FacebookLoginButton">
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-    </style>
+
 
 </resources>

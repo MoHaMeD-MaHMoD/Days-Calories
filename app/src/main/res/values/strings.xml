@@ -1,4 +1,10 @@
 <resources>
-    <string name="app_name">Track Your Health</string>
-    <string name="email">EMAIL</string>
+    <string name="app_name">Log In Designed</string>
+    <string name="facebook_app_id">128308721651990</string>
+    <string name="fb_login_protocol_scheme">fb128308721651990</string>
+
+
+
+
+
 </resources>

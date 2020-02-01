@@ -4,12 +4,12 @@
 
   <color name="primaryColor">#3a537e</color>
   <color name="primaryLightColor">#687fae</color>
-  <color name="primaryDarkColor">#042b51</color>
-  <color name="secondaryColor">#ffff50</color>
-  <color name="secondaryLightColor">#ffff85</color>
-  <color name="secondaryDarkColor">#c9cc05</color>
-  <color name="primaryTextColor">#ffffff</color>
-  <color name="secondaryTextColor">#000b51</color>
+  <color name="primaryDarkColor">#0F1812</color>
+
+    <color name="hint">#9C9C9C</color>
+
+    <color name="primaryTextColor">#fff</color>
+
 
 
 

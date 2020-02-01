@@ -1,5 +1,6 @@
 package com.example.trackyourhealth.LogInAndSignUp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,13 +27,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     EditText ResetemailPasswordedittext;
     @BindView(R.id.ResetemailPasswordButton)
     Button ResetemailPasswordButton;
-
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
-        ProgressBar progressBar = (ProgressBar)findViewById(R.id.progressBar) ;
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
 
         ButterKnife.bind(this);
@@ -43,17 +44,30 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     @OnClick(R.id.ResetemailPasswordButton)
     public void onViewClicked() {
         String emailAddress = ResetemailPasswordedittext.getText().toString();
+        if (emailAddress.isEmpty()) {
+            Toast.makeText(ForgetPasswordActivity.this, "Empty Field", Toast.LENGTH_LONG).show();
+        } else {
+            progressBar.setVisibility(View.VISIBLE);
 
-        auth.sendPasswordResetEmail(emailAddress)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            // Log.d(TAG, "Email sent.");
-                            Toast.makeText(ForgetPasswordActivity.this, "Check your Email For a Link To Reset Your Password ", Toast.LENGTH_LONG).show();
+            auth.sendPasswordResetEmail(emailAddress)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(ForgetPasswordActivity.this, "Check your Email For a Link To Reset Your Password ", Toast.LENGTH_LONG).show();
+                                Intent intent = new Intent(ForgetPasswordActivity.this, LogInActivity.class);
+                                startActivity(intent);
+                            } else {
+                                progressBar.setVisibility(View.GONE);
+                                Toast.makeText(ForgetPasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+
+
+                            }
                         }
-                    }
-                });
+                    });
+        }
+
 
     }
 }

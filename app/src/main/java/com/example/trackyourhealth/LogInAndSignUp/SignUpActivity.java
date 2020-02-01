@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.trackyourhealth.MainActivity;
 import com.example.trackyourhealth.R;
+import com.facebook.CallbackManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,7 +26,7 @@ import butterknife.OnClick;
 
 public class SignUpActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
-
+    CallbackManager callbackManager;
     @BindView(R.id.emailedittext)
     EditText emailedittext;
     @BindView(R.id.passwordedittext)
@@ -31,18 +34,27 @@ public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.signUpButton)
     Button signUpButton;
     @BindView(R.id.loginbutton)
-    Button loginbutton;
+    ImageView loginbutton;
+    @BindView(R.id.progressBar)
     ProgressBar progressBar;
+
+    @BindView(R.id.imageView)
+    ImageView imageView;
+    @BindView(R.id.imageView2)
+    ImageView imageView2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-         progressBar = (ProgressBar)findViewById(R.id.progressBar) ;
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
 
         ButterKnife.bind(this);
         mAuth = FirebaseAuth.getInstance();
+
+
     }
 
 
@@ -51,7 +63,8 @@ public class SignUpActivity extends AppCompatActivity {
         String email = emailedittext.getText().toString();
         String password = passwordedittext.getText().toString();
 
-        if (email.isEmpty()==false && password.isEmpty()==false){    progressBar.setVisibility(View.VISIBLE);
+        if (email.isEmpty() == false && password.isEmpty() == false) {
+            progressBar.setVisibility(View.VISIBLE);
 
 
             mAuth.createUserWithEmailAndPassword(email, password)
@@ -59,12 +72,17 @@ public class SignUpActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                // Write new User to DataBse
+                                Helper helper = new Helper();
+
+                                helper.writeNewUser(mAuth.getUid(), "med"," ", email, false);
+
                                 // Sign in success, update UI with the signed-in user's information
                                 sendEmailVerification();
 
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Toast.makeText(SignUpActivity.this,task.getException().getMessage(),
+                                Toast.makeText(SignUpActivity.this, task.getException().getMessage(),
                                         Toast.LENGTH_LONG).show();
                                 progressBar.setVisibility(View.GONE);
 
@@ -72,9 +90,9 @@ public class SignUpActivity extends AppCompatActivity {
 
                             // ...
                         }
-                    });}
-        else
-            Toast.makeText(SignUpActivity.this,"Empty Fields",
+                    });
+        } else
+            Toast.makeText(SignUpActivity.this, "Empty Fields",
                     Toast.LENGTH_LONG).show();
 
 
@@ -94,9 +112,10 @@ public class SignUpActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Check your Account For verivication link",
                             Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(SignUpActivity.this, LogInActivity.class);
+                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                     startActivity(intent);
-                   // progressBar.setVisibility(View.GONE);
+                    finish();
+                    progressBar.setVisibility(View.GONE);
 
 
                 }
@@ -104,4 +123,14 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
+
+
+
+
+
+
+
 }

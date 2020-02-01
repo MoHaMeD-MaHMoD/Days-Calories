@@ -9,7 +9,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.example.trackyourhealth"
-        minSdkVersion 25
+        minSdkVersion 19
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -47,13 +47,21 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
     // Add this for using Firebase DataBase
     implementation 'com.google.firebase:firebase-database:19.2.0'
-// Add this for using Firebase AUTHintiction
+
+    // Add this for using Firebase AUTHintiction
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
-// Butterknife requires
+    // Add this for using Firebase Storge
+
+    implementation 'com.google.firebase:firebase-storage:19.1.0'
+    // Butterknife requires
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
+    //facebook
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
 
 }
