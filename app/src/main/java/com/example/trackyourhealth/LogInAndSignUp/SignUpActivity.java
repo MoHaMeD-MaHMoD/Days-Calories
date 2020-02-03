@@ -38,10 +38,6 @@ public class SignUpActivity extends AppCompatActivity {
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
-    @BindView(R.id.imageView)
-    ImageView imageView;
-    @BindView(R.id.imageView2)
-    ImageView imageView2;
 
 
     @Override

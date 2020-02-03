@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.trackyourhealth.LogInAndSignUp.Helper;
 import com.example.trackyourhealth.LogInAndSignUp.LogInActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-   /* if (auth.getCurrentUser().isEmailVerified()){
+  if (auth.getCurrentUser().isEmailVerified()){
             // Write new User to DataBse
             Helper helper = new Helper();
 
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         }
-*/
+
 
         ValueEventListener userListener = new ValueEventListener() {
             @Override
